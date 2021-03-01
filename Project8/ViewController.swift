@@ -66,6 +66,7 @@ class ViewController: UIViewController {
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonsView)
         
+        // MARK: - Constraints
         NSLayoutConstraint.activate([
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
@@ -91,9 +92,21 @@ class ViewController: UIViewController {
             buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),
             buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
         ])
-        cluesLabel.backgroundColor = .red
-        answersLabel.backgroundColor = .blue
-        buttonsView.backgroundColor = .green
+        
+        let width = 150
+        let height = 80
+        
+        for row in 0..<4 {
+            for column in 0..<5 {
+                let letterBtn = UIButton(type: .system)
+                letterBtn.titleLabel?.font = UIFont.systemFont(ofSize: 36)
+                letterBtn.setTitle("WWW", for: .normal)
+                let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
+                letterBtn.frame = frame
+                buttonsView.addSubview(letterBtn)
+                letterButtons.append(letterBtn)
+            }
+        }
     }
     
     override func viewDidLoad() {
