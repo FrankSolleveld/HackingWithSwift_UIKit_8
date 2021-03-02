@@ -155,6 +155,14 @@ class ViewController: UIViewController {
                 ac.addAction(UIAlertAction(title:"Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else {
+            for button in activatedButtons {
+                button.isHidden = false
+            }
+            activatedButtons.removeAll()
+            let ac = UIAlertController(title: "That's incorrect", message: "That word does is not correct.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title:"Dismiss", style: .cancel))
+            present(ac, animated: true)
         }
     }
     
