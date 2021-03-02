@@ -7,7 +7,6 @@
 
 /*
  CHALLENGE TIME
-    1. Use techniques you learned in project 2 to draw a thin gray line around the buttons view.
     2. If the user enters an incorrect guess, show an alert telling them they are wrong. (submit method)
     3. Make the game also deduct points if the player makes an incorrect guess. Think about how you can move to the next level!
 */
@@ -81,6 +80,8 @@ class ViewController: UIViewController {
         
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsView.layer.borderWidth = 1
+        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
         view.addSubview(buttonsView)
         
         // MARK: - Constraints
