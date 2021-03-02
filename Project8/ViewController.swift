@@ -5,12 +5,6 @@
 //  Created by Frank Solleveld on 01/03/2021.
 //
 
-/*
- CHALLENGE TIME
-    2. If the user enters an incorrect guess, show an alert telling them they are wrong. (submit method)
-    3. Make the game also deduct points if the player makes an incorrect guess. Think about how you can move to the next level!
-*/
-
 import UIKit
 
 class ViewController: UIViewController {
@@ -28,6 +22,7 @@ class ViewController: UIViewController {
             scoreLabel.text = "Score: \(score)"
         }
     }
+    var hiddenButtons = 0
     var level = 1
     
     // MARK: - Lifecycle Methods
@@ -124,6 +119,7 @@ class ViewController: UIViewController {
                 letterBtn.frame = frame
                 buttonsView.addSubview(letterBtn)
                 letterButtons.append(letterBtn)
+                print(letterButtons.count)
             }
         }
     }
@@ -139,6 +135,7 @@ class ViewController: UIViewController {
         currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
         activatedButtons.append(sender)
         sender.isHidden = true
+        hiddenButtons += 1
     }
     
     @objc func submitTapped(_ sender: UIButton) {
@@ -150,7 +147,7 @@ class ViewController: UIViewController {
             answersLabel.text = splitAnswers?.joined(separator: "\n")
             currentAnswer.text = ""
             score += 1
-            if score % 7 == 0 {
+            if hiddenButtons == 20 {
                 let ac = UIAlertController(title: "Well Done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title:"Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
@@ -158,8 +155,13 @@ class ViewController: UIViewController {
         } else {
             for button in activatedButtons {
                 button.isHidden = false
+                hiddenButtons -= 1
             }
             activatedButtons.removeAll()
+            currentAnswer.text = ""
+            if score != 0 {
+                score -= 1
+            }
             let ac = UIAlertController(title: "That's incorrect", message: "That word does is not correct.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title:"Dismiss", style: .cancel))
             present(ac, animated: true)
@@ -179,6 +181,7 @@ class ViewController: UIViewController {
         currentAnswer.text = ""
         for button in activatedButtons {
             button.isHidden = false
+            hiddenButtons -= 1
         }
         activatedButtons.removeAll()
     }
